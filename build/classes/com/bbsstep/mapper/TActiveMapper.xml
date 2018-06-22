@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbsstep.mapper.TActiveMapper" >
+  
+  
+  
+  
+  <select id="selectSumActive" resultType="java.lang.Integer">
+   	select count(*)
+	from t_active 
+	where isdelete!=1
+  </select>
+  
+  <select id="selectMonthActive" resultType="java.lang.Integer">
+   	select count(*)
+	from t_active 
+	where year(createdate)=year(now()) 
+   		and month(createdate)=month(now())
+		and isdelete!=1
+  </select>
+  
+  <select id="selectDayActive" resultType="java.lang.Integer">
+   	select count(*)
+	from t_active
+	where year(createdate)=year(now()) 
+   		and month(createdate)=month(now())
+   		and day(createdate)=day(now())
+		and isdelete!=1
+  </select>
+  <select id="selectActiveByCity" resultType="com.bbsstep.po.ActiveBean" parameterType="string">
+    <![CDATA[
+    select id, userid, activename, type, startdate, enddate, province, city, address, 
+    	longitude, latitude, radius, addr, praise, steps, activestatus, activepower, createdate, 
+    	updatedate, activesex, joinnum, cost, commission, username, nickname, typeName, content,hxgroupid,isdelete
+    	,requireName,requireComp,requirePosition,
+  	    requireMobile,display_order,maxnum,iconurl
+    from view_active_infor
+    where isdelete!=1 and city=#{cityName}
+    
+    ]]>
+    <!-- and enddate>=now()-->
+  </select>
+  
+  
+  
+  
+</mapper>

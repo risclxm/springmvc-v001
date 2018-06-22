@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbsstep.mapper.TSysUserMapper" >
+
+  <sql id="selectColumn">
+  	id, username, password, truename, createtime, updatetime, state
+  </sql>
+  
+   <select id="CheckUserForLogin" resultType="com.bbsstep.po.TSysUser" parameterType="com.bbsstep.po.TSysUser" >
+    select 
+      <include refid="selectColumn"/>
+    from t_sys_user
+    where state !='1' and state !='2' and username = #{username}
+        and password=#{password}
+  </select>
+  
+  <!-- 修改状态 -->
+  <update id="updateStatus" parameterType="com.bbsstep.po.TSysUser" >
+    update t_sys_user
+    set state=#{status}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 修改密码 -->
+  <update id="updatePassword" parameterType="com.bbsstep.po.TSysUser" >
+    update t_sys_user
+    set password=#{password}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

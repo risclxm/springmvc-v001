@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbsstep.mapper.TUserMapper" >
+  
+  
+  <select id="selectMonthUser" resultType="java.lang.Integer">
+   	select count(*)
+	from t_user 
+	where year(createdate)=year(now()) 
+   		and month(createdate)=month(now())
+		<!--  and status!=2-->
+  </select>
+  
+  <select id="selectDayUser" resultType="java.lang.Integer">
+   	select count(*)
+	from t_user
+	where year(createdate)=year(now()) 
+   		and month(createdate)=month(now())
+   		and day(createdate)=day(now())
+		<!--  and status!=2-->
+  </select>
+  <select id="selectAllUser" resultType="java.lang.Integer">
+   	select count(*)
+	from t_user 
+	
+		<!--  and status!=2-->
+  </select>
+  
+  
+</mapper>
