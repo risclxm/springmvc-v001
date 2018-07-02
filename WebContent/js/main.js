@@ -479,15 +479,7 @@ function editType(title, id,status,weight) {
 	$("#weight").val(weight);
 	$('#myModal').modal('show');// 显示修改
 }
-// 修改开屏广告
-function editPeacock(title, weight, ischoose, imageFrontOld, id) {
-	$("#user_form").attr("action", "peacock/edit");
-	$("#title").val(title);// 写入角色编号
-	$("#imageFrontOld").attr("src", imageFrontOld);
-	$("#path").val(imageFrontOld);
-	$("#id").val(id);
-	$('#myModal').modal('show');// 显示修改
-}
+
 
 function initPortrait(ctrlName, imageurl) {
     var control = $('#' + ctrlName);
@@ -723,42 +715,6 @@ function delCarouse(id,flag) {
 			}
 		},
 		title : "引导图提示框",
-	});
-}
-// 删除开屏广告
-function delPeacock(id, flag) {
-	bootbox.confirm({
-		buttons : {
-			confirm : {
-				label : '确定',
-				className : 'btn-myStyle'
-			},
-			cancel : {
-				label : '取消',
-				className : 'btn-default'
-			}
-		},
-		message : '确定要删除这条信息吗？',
-		callback : function(result) {
-			if (result) {
-				// 发送请求删除数据
-				if (flag == 't') {
-					bootbox.alert({
-						buttons : {
-							ok : {
-								label : '确定',
-								className : 'btn-myStyle'
-							}
-						},
-						message : '正在使用开屏广告不能删除',
-						title : "操作消息",
-					});
-					return;
-				}
-				window.location.href = "peacock/del?id=" + id;
-			}
-		},
-		title : "开屏广告框",
 	});
 }
 
@@ -1020,19 +976,75 @@ function addPush() {
 	initFileInput("coverphoto","file/fileUpload?"+ new Date());
 	$('#myModal').modal('show');// 显示修改
 }
-
+//--------------------------------------以下为----开屏广告设置相应js方法-------以下为--------------------------------------------------//
 // 打开增加开屏广告
 function addpeacock() {
 	// 隐藏所有校验图标和内容
 	$("#user_form").data('bootstrapValidator').resetForm();
-	$("#user_form").attr("action", "peacock/add");
+	$("#user_form").attr("action", "carousel/peacockAdd.action");
 	$("#title").val("");// 写入标题
 	$("#imageFrontOld").attr("src", "");
-	$("#path").val("");
-	$("#result").html("");
+	$("#pic").hide();
 	$('#myModal').modal('show');// 显示修改
 }
 
+//修改开屏广告
+//TODO 学生自己完成
+function editPeacock(title, imageFrontOld, id) {
+	//更改表单提交路径
+	
+	$("#user_form").attr("action", "后期去做");
+	// 将原本信息填充到表单中
+	$("#title").val(title);// 写入角色编号
+	$("#imageFrontOld").attr("src", imageFrontOld);
+	$("#id").val(id);
+	$('#myModal').modal('show');// 显示修改
+}
+//修改开屏广告状态
+//TODO 学生自己完成
+function updatePeacockStae(id, state) {
+	if (confirm("确认要修改吗？") == true) {
+		window.location.href = "将参数传递给可以进行状态修改的controller。";
+	}
+}
+//删除开屏广告
+//TODO 学生自己完成
+function delPeacock(id, flag) {
+	bootbox.confirm({
+		buttons : {
+			confirm : {
+				label : '确定',
+				className : 'btn-myStyle'
+			},
+			cancel : {
+				label : '取消',
+				className : 'btn-default'
+			}
+		},
+		message : '确定要删除这条信息吗？',
+		callback : function(result) {
+			if (result) {
+				// 发送请求删除数据
+				if (flag == 't') {
+					bootbox.alert({
+						buttons : {
+							ok : {
+								label : '确定',
+								className : 'btn-myStyle'
+							}
+						},
+						message : '正在使用开屏广告不能删除',
+						title : "操作消息",
+					});
+					return;
+				}
+				window.location.href = "将id传递给可以删除开屏广告的controller";
+			}
+		},
+		title : "开屏广告框",
+	});
+}
+//--------------------------------------以上为----开屏广告设置相应js方法-------以上为--------------------------------------------------//
 // 打开增加活动类别
 function addactivetype() {
 	// 隐藏所有校验图标和内容
@@ -1074,12 +1086,8 @@ function updateStae(id, state) {
 	});
 }
 
-function updatePeacockStae(id, state) {
-	if (confirm("确认要修改吗？") == true) {
-		window.location.href = "peacock/state?id=" + id + "&state=" + state;
-	}
-}
 
+// 提交引导图、开屏广告
 $(document).ready(function() {
 	$("#btn_user_submit").unbind("click");
 	// 提交引导图、开屏广告

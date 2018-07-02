@@ -3,12 +3,15 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String picBasePath =request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
+
 %>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <base href="<%=basePath%>">
+    
 	<jsp:include page="/pages/common/head.jsp"></jsp:include>
 	<script type="text/javascript" src="js/main.js"></script>
   </head>
@@ -75,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <hr>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
+         <input type="text" value="<%=picBasePath %>" aria-hidden="true" id="picBasePath"/>
 
         <div class="modal-dialog">
             <div class="modal-content">
@@ -95,6 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
     var table;
     $(document).ready(function() {
+    	var picBasePath =$("#picBasePath").val();
+    	//alert(picBasePath);
     	table=$('#carouseTable').dataTable({
     		sPaginationType:'bootstrap',
 	    	processing: true,
@@ -159,7 +165,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            {
 			            	"targets": [6],
 			            	"render" : function(data,type,row, meta) {
-			            		var str='<button type="button" class="btn btn-small btn-primary btn-edit" onclick="editPeacock(\''+row.title+'\','+row.weight+',\''+row.ischoose+'\',\''+row.path+'\','+row.id+')"><i class="glyphicon glyphicon-pencil"></i>修改</button>';
+			            		
+			            		
+			            		var str='<button type="button" class="btn btn-small btn-primary btn-edit" onclick="editPeacock(\''+row.title+'\','+picBasePath+row.path+'\','+row.id+')"><i class="glyphicon glyphicon-pencil"></i>修改</button>';
 			            		str+='<button class="btn btn-small btn-primary btn-edit" onclick="delPeacock('+row.id+',\''+row.ischoose+'\')"><i class="glyphicon glyphicon-trash icon-white"></i>删除</button>';
 								return str;
 							}
