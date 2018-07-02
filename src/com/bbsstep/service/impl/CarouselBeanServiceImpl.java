@@ -25,6 +25,12 @@ public class CarouselBeanServiceImpl implements CarouselBeanService {
 		return param;
 	}
 
+	@Override
+	public int add(CarouselBean record) {
+		
+		return carouselBeanMapper.insert(record);
+	}
+
 	
 
 	

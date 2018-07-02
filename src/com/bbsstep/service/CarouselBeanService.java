@@ -9,7 +9,7 @@ public interface CarouselBeanService {
 
 	public DataTablePageUtil<CarouselBean> list(DataTablePageUtil<CarouselBean> param);
 	
-	//public int add(CarouselBean record);
+	public int add(CarouselBean record);
 	
 	
 }
