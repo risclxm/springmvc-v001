@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        serverSide: true,
 	        ordering: false,
 	        ajax:{
-	            url: 'carousel/peacocklist',
+	            url: 'carousel/peacocklist.action',
 	            type: 'POST'
 	        },
 	        language: {
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            { "data": "title" },
 			            { "data": "path",
 			               "render" : function(data,type, row, meta) {
-								return '<img height="40" width="80" src="'+data+'"/>';
+								return '<img height="40" width="80" src="/'+data+'"/>';
 							}},
 			            {  "data": "ischoose",
 			               "width" : "80px",
