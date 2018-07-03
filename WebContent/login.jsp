@@ -30,7 +30,7 @@
 			</div>
 			<h3>欢迎使用此时运营系统后台</h3>
 
-			<form action="tsysuser/managerlogin.action" method="post">
+			<form action="tsysuser/managerlogin" method="post">
 				<div class="form-group">
 					<input type="text" name="username" class="form-control"
 						placeholder="用户名" required>
