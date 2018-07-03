@@ -32,7 +32,7 @@ public class TSysUserController extends BaseController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/managerlogin.action")
+	@RequestMapping("/managerlogin")
 	public ModelAndView login(
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password,
