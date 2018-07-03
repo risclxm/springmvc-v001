@@ -38,7 +38,7 @@ public class CarouselController {
 		return carouselBeanService.list(dataTable);
 	}
 
-	@RequestMapping("/peacocklist.action")
+	@RequestMapping(value="/peacocklist.action",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String peacocklist(WebRequest request) {
 		DataTablePageUtil<CarouselBean> dataTable = new DataTablePageUtil<CarouselBean>(request);
