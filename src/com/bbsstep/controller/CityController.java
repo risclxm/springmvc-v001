@@ -25,7 +25,7 @@ public class CityController {
 	private TActiveServiceInterface activeService;
 	
 	@ResponseBody
-	@RequestMapping(value="/mapcity.action")
+	@RequestMapping(value="/mapcity.action",produces="application/json;charset=utf-8")
 	public String getCityByName(String cityName) {
 		CityBeanVo vo = new CityBeanVo();
 		CityBean bean =cityservice.selectByCityName(cityName);
