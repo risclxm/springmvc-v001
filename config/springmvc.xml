@@ -31,6 +31,7 @@
 			</list>
 		</property>
 	</bean>
+	
 	<!-- <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter"/>
 	
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
@@ -52,11 +53,12 @@
 
 	<!-- 扫描controller注解,多个包中间使用半角逗号分隔 -->
 	<!-- <bean id="service" class="com.bbsstep.service.TsysUserService" /> -->
-	<context:component-scan base-package="com.bbsstep.controller,com.bbsstep.service"></context:component-scan>
+	<context:component-scan base-package="com.bbsstep"></context:component-scan>
 
-	<!-- spingmvc 中 将静态文件排除 -->
-	<mvc:resources location="/" mapping="/*"></mvc:resources>
-	
+	<!-- spingmvc 中 将静态文件排除  添加shrio后出现问题 缓存下面一行-->
+	<!-- <mvc:resources location="/" mapping="/*"></mvc:resources> -->
+	<!-- springmvc无法映射的请求有原先的servlet处理 -->
+	<mvc:default-servlet-handler />
 	
 	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
         <property name="config">

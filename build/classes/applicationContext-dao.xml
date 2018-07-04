@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
@@ -16,7 +14,8 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-        
+
+
 	<context:property-placeholder location="classpath:db.properties" />
 	<!-- 数据源，使用dbcp -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -36,11 +35,40 @@
 		<!-- 数据源 -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<!-- mapper批量扫描，从mapper包中扫描出mapper接口，自动创建代理对象并在spring容器中注册。
-	注意：mapper.java 和 mapper.xml文件名称保持一致，且在一个目录中。自动扫描出来的mapper的bean的id为mapper类名（首字母小写）-->
+	<!-- mapper批量扫描，从mapper包中扫描出mapper接口，自动创建代理对象并在spring容器中注册。 注意：mapper.java 
+		和 mapper.xml文件名称保持一致，且在一个目录中。自动扫描出来的mapper的bean的id为mapper类名（首字母小写） -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.bbsstep.mapper"></property>
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
- 
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="secuityManager"></property>
+		<property name="loginUrl" value="/login.jsp" />
+		<property name="unauthorizedUrl" value="403.html" />
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- anon表示不做权限认证 他们是有顺序的 -->
+				/login.jsp = anon
+				/managerlogin = anon
+				/pages/*/*/*=authc
+				/pages/*/*=authc
+				/*=authc
+				
+			</value>
+		</property>
+	</bean>
+	<bean id="secuityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="realm"></property>
+	</bean>
+	<bean id="realm" class="com.bbsstep.realm.CustomerRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+	</bean>
+	<bean id="credentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5"></property>
+		<property name="hashIterations" value="1"></property>
+	</bean>
+
+
+
 </beans>

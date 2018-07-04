@@ -6,12 +6,20 @@
   	id, username, password, truename, createtime, updatetime, state
   </sql>
   
-   <select id="CheckUserForLogin" resultType="com.bbsstep.po.TSysUser" parameterType="com.bbsstep.po.TSysUser" >
+   <select id="getUserByNameAndPwd" resultType="com.bbsstep.po.TSysUser" parameterType="com.bbsstep.po.TSysUser" >
     select 
       <include refid="selectColumn"/>
     from t_sys_user
     where state !='1' and state !='2' and username = #{username}
         and password=#{password}
+  </select>
+  
+  <select id="getPwdByName" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+      password
+    from t_sys_user
+    where state !='1' and state !='2' and username = #{username}
+        
   </select>
   
   <!-- 修改状态 -->

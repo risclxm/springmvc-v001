@@ -14,11 +14,7 @@ public class TsysUserService implements TsysUserServiceInteface{
 	@Autowired
 	private TSysUserMapper TSysUserDao;
 	
-	@Transactional
-	public TSysUser checkUser(TSysUser user) {
-		
-		return TSysUserDao.CheckUserForLogin(user);
-	}
+	
 
 	@Override
 	public boolean updatePassword(TSysUser user) {
@@ -29,6 +25,11 @@ public class TsysUserService implements TsysUserServiceInteface{
 		}
 		return false;
 		
+	}
+
+	@Override
+	public TSysUser getUser(TSysUser user) {
+		return TSysUserDao.getUserByNameAndPwd(user);
 	}
 
 }

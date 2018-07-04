@@ -37,6 +37,15 @@
     order by createtime desc
     limit #{start},#{length}
   </select>
-  
+    <insert id="insert" parameterType="com.bbsstep.po.CarouselBean" >
+    insert into t_carousel (id, title, path, 
+      weight, user_id, createtime, 
+      edittime, ischoose, type
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{createtime}, 
+      #{edittime}, #{ischoose,jdbcType=CHAR}, #{type,jdbcType=CHAR}
+      )
+  </insert>
   
 </mapper>

@@ -4,7 +4,7 @@ import com.bbsstep.po.TSysUser;
 
 public interface TsysUserServiceInteface {
 
-	TSysUser checkUser(TSysUser user);
+	TSysUser getUser(TSysUser user);
 	 boolean updatePassword(TSysUser user);
 
 }

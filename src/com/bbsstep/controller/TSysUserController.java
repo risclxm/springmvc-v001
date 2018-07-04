@@ -3,6 +3,11 @@ package com.bbsstep.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AccountException;
+import org.apache.shiro.authc.CredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +27,6 @@ import com.google.code.kaptcha.Constants;
 
 
 @Controller
-@RequestMapping(value="/tsysuser")
 public class TSysUserController extends BaseController{
 	@Autowired
 	TsysUserServiceInteface service ;
@@ -40,31 +44,43 @@ public class TSysUserController extends BaseController{
 			HttpServletRequest request,
 			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		password=MDUtil.GetMD5Code(password);
+		
 		String original =(String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if(!original.equalsIgnoreCase(code.trim())){
 			logger.info("验证码输入错误");
 			mv.addObject("msg","验证码输入错误");
-			mv.setViewName(""
-					+ "?msg=0");
+			mv.setViewName("redirect:/login.jsp?msg=1");
 		}else{
+			
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			try {
+			  subject.login(token);
+			}catch(AccountException e) {
+				logger.info("账号错误");
+				mv.addObject("msg","账号错误");
+				mv.setViewName("redirect:/login.jsp?msg=1");
+				return mv;
+			}catch(CredentialsException e) {
+				logger.info("账号错误");
+				mv.addObject("msg","凭证错误");
+				mv.setViewName("redirect:/login.jsp?msg=1");
+				return mv;
+			}
+			logger.info("用户:"+username+"登陆成功");
 			TSysUser user = new TSysUser();
+			password=MDUtil.GetMD5Code(password);
 			user.setPassword(password);
 			user.setUsername(username);
-			TSysUser loginUser=service.checkUser(user);
-			if(loginUser!=null){
-				logger.info("用户:"+username+"登陆成功");
-				session.setAttribute("login", loginUser);
-				mv.setViewName("redirect:/pages/home/index.jsp");
-			}else{
-				logger.info("用户:"+username+"登陆失败，用户名或密码错误");
-				mv.addObject("msg","用户名或密码错误");
-				mv.setViewName("redirect:/login.jsp?msg=1");
-			}
+			TSysUser loginUser=service.getUser(user);
+			session.setAttribute("login", loginUser);
+			mv.setViewName("redirect:/pages/home/index.jsp");
+			
+			
 		}
 		return mv;
 	}
-	@RequestMapping(value="/updatepwd.action" ,method=RequestMethod.POST)
+	@RequestMapping(value="/tsysuser/updatepwd.action" ,method=RequestMethod.POST)
 	@ResponseBody
 	public String updatePassword(String password,HttpSession session) {
 		String str="更新失败";

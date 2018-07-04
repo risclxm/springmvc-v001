@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/com/bbsstep/controller/CaptchaController.java=UTF-8
+encoding//src/com/bbsstep/controller/CarouselController.java=UTF-8
 encoding//src/com/bbsstep/controller/TSysUserController.java=UTF-8
 encoding//src/com/bbsstep/po/TSysUser.java=UTF-8
+encoding//src/com/bbsstep/util/DataTablePageUtil.java=UTF-8
