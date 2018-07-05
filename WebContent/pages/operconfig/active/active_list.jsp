@@ -46,6 +46,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		 <a href="javascript:void(0)" onclick="cancelActiveTop()" class="btn btn-info btn-department-edit-all"> 
         		 	<i class="glyphicon glyphicon-edit icon-white"></i>批量取消置顶
         		 </a>
+        		 <a href="javascript:void(0)" onclick="setRecommend()" class="btn btn-success">
+            	 	<i class="glyphicon glyphicon-plus icon-white"></i>批量推荐
+            	 </a>
+        		 <a href="javascript:void(0)" onclick="cancelsetRecommend()" class="btn btn-info btn-department-edit-all"> 
+        		 	<i class="glyphicon glyphicon-edit icon-white"></i>批量取消推荐
+        		 </a>
         </div>
    </div>
    <div class="row" style="text-align: center">
@@ -152,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        serverSide: true,
 	        ordering: false,
 	        ajax:{
-	            url: 'active/hotActlist',
+	            url: 'active/hotActiveslist',
 	            type: 'POST',
 	            data: {
                 	"title": $("#activeTitle").val(),
