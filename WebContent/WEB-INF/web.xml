@@ -36,7 +36,23 @@
 		<url-pattern>/</url-pattern>
 		<!-- 这里可以用 / 但不能用 /* ，拦截了所有请求会导致静态资源无法访问，所以要在springmvc.xml中配置mvc:resources -->
 	</servlet-mapping>
+<filter>
+		<filter-name>Set Character Encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value><!-- 强制进行转码 -->
+		</init-param>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>Set Character Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
