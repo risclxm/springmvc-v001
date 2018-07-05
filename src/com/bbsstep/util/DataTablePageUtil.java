@@ -4,21 +4,19 @@ import java.util.HashMap;
 import java.util.List;  
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.WebRequest;  
 
 
   
 public class DataTablePageUtil<T> {  
   
-    private int draw; // 第几次请�?  
+    private int draw; // 第几次请求  
     private int start = 0;// 起止位置'0'  
     private int length = 10; // 数据长度'10'  
     private List<T> data;  
     private int recordsTotal; // 数据总记录数  
-    private int recordsFiltered; // 过滤�?  
+    private int recordsFiltered; // 过滤条数  
   
     private Map<String, Object> condition = new HashMap<String, Object>(); // 查询条件  
     private String search;
@@ -28,17 +26,18 @@ public class DataTablePageUtil<T> {
     public DataTablePageUtil() {  
   
     }  
+    // 先注释掉，后期再说
   
-    public DataTablePageUtil(WebRequest request) {
-    	logger.debug("查询条件:"+request.getParameter("search[value]")); 
-    	if(StringUtils.isNotBlank(request.getParameter("search[value]"))){
-    		//查询条件
-    		this.setSearch(request.getParameter("search[value]"));
-    	}
-    	this.setDraw(Integer.parseInt(request.getParameter("draw")));
-    	this.setStart(Integer.parseInt(request.getParameter("start")));
-    	this.setLength(Integer.parseInt(request.getParameter("length")));
-    }  
+//    public DataTablePageUtil(WebRequest request) {
+//    	logger.debug("查询条件:"+request.getParameter("search[value]")); 
+//    	if(StringUtils.isNotBlank(request.getParameter("search[value]"))){
+//    		//查询条件
+//    		this.setSearch(request.getParameter("search[value]"));
+//    	}
+//    	this.setDraw(Integer.parseInt(request.getParameter("draw")));
+//    	this.setStart(Integer.parseInt(request.getParameter("start")));
+//    	this.setLength(Integer.parseInt(request.getParameter("length")));
+//    }  
   
     public int getDraw() {  
         return draw;  
