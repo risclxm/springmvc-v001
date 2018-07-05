@@ -32,7 +32,7 @@ public class CarouselController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public DataTablePageUtil<CarouselBean> list(WebRequest request) {
-		DataTablePageUtil<CarouselBean> dataTable = new DataTablePageUtil<CarouselBean>(request);
+		DataTablePageUtil<CarouselBean> dataTable = new DataTablePageUtil<CarouselBean>();
 		// 设置查询类型为引导图
 		dataTable.getCondition().put("type", "y");
 		return carouselBeanService.list(dataTable);
@@ -41,7 +41,7 @@ public class CarouselController {
 	@RequestMapping(value="/peacocklist.action",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String peacocklist(WebRequest request) {
-		DataTablePageUtil<CarouselBean> dataTable = new DataTablePageUtil<CarouselBean>(request);
+		DataTablePageUtil<CarouselBean> dataTable = new DataTablePageUtil<CarouselBean>();
 		// 设置查询类型为引导图
 		dataTable.getCondition().put("type", "a");
 		String peacocklistStr = JSON.toJSONString(carouselBeanService.list(dataTable));

@@ -3,6 +3,7 @@
 <mapper namespace="com.bbsstep.mapper.TActiveMapper" >
   
   
+ 
   
   
   <select id="selectSumActive" resultType="java.lang.Integer">
@@ -41,7 +42,56 @@
     <!-- and enddate>=now()-->
   </select>
   
+  <!-- 查询所有热点活动 -->
+  <select id="selectHotActiveList" resultType="com.bbsstep.po.ActiveBean" parameterType="com.bbsstep.util.DataTablePageUtil">
+    select 
+        v.id, v.userid, activename, type, startdate, enddate, province, city, address, 
+    	longitude, latitude, radius, addr, praise, steps, activestatus, activepower, createdate, 
+    	updatedate, activesex, joinnum, cost, commission, username, nickname, typeName, content,hxgroupid,v.isdelete
+    	,requireName,requireComp,requirePosition,
+  	  requireMobile,display_order,maxnum,iconurl
+    from view_active_infor v
+    where v.isdelete!=1
+    <if test="condition.title !=null">
+       and activename like CONCAT('%',#{condition.title}, '%')
+    </if>
+    <if test="condition.city !=null">
+    	and city like CONCAT('%',#{condition.city}, '%')
+    </if>
+    <if test="condition.type !=null">
+        and type=#{condition.type}
+    </if>
+    <if test="search != null">
+    	and ( 
+    	  activename like CONCAT('%',#{search}, '%') or province like  CONCAT('%',#{search}, '%') or
+    	  address like CONCAT('%',#{search}, '%') or addr like  CONCAT('%',#{search}, '%') or
+    	  typeName like  CONCAT('%',#{search}, '%')
+    	)
+    </if>
+    order by display_order desc,praise desc
+    limit #{start},#{length}
+  </select>
   
-  
+   <select id="selectNumHotActiveList" resultType="java.lang.Integer" parameterType="com.bbsstep.util.DataTablePageUtil">
+    select count(*)
+    from view_active_infor 
+    where isdelete!=1
+    <if test="condition.title !=null">
+       and activename like CONCAT('%',#{condition.title}, '%')
+    </if>
+    <if test="condition.city !=null">
+    	and city like CONCAT('%',#{condition.city}, '%')
+    </if>
+    <if test="condition.type !=null">
+        and type=#{condition.type}
+    </if>
+    <if test="search != null">
+    	and ( 
+    	  activename like CONCAT('%',#{search}, '%') or province like  CONCAT('%',#{search}, '%') or
+    	  address like CONCAT('%',#{search}, '%') or addr like  CONCAT('%',#{search}, '%') or
+    	  typeName like  CONCAT('%',#{search}, '%')
+    	)
+    </if>
+  </select>
   
 </mapper>
